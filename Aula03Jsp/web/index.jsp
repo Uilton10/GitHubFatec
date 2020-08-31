@@ -14,7 +14,9 @@
         <h1>Java Server Pages</h1>
         <h2>Index</h2>
         <h3>
-            <a href="server-date.jsp">Data Hora no Servidor </a>            
+            <a href="server-date.jsp">Data Hora no Servidor </a>   <br>
+            <a href="idade.jsp">Idade </a>  <br>
+            <a href="randonten.jsp">Números Aleatorios</a>  
         </h3>
     </body>
 </html>

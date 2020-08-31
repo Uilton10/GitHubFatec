@@ -4,6 +4,7 @@
     Author     : uilsa
 --%>
 
+<%@page import="java.util.Random"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,14 +13,19 @@
     </head>
     <body>
         <h1>Java Server Pages</h1>
-        <h2>Data/hora no servidor</h2>
-        <h3>Utilizando Scriptlet:</h3>
-        <%
-        java.util.Date agora = new java.util.Date();
-        out.println("<h4>Agora no servidor: "+agora+"</h4>");
-        %>
-        <h3>Utilizando expression</h3>
-         <h4>Agora no servidor: <%=agora %></h4>         
-         <a href="index.jsp"> <-Voltar </a>    
+        <a href="index.jsp"> <-Voltar </a>  
+        <h2>Numeros Aleatorios</h2>
+        <table border="1">
+            <tr>
+                Numeros
+                </tr>
+                
+        <% for (int i=1; i<=10;i++){ %>
+        <tr><td>
+            <%= ((int)(100*Math.random()))%>
+            </td></tr>
+           <% } %>
+         </table>
+         
     </body>
 </html>
