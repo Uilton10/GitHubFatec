@@ -16,7 +16,9 @@
         <h3>
             <a href="server-date.jsp">Data Hora no Servidor </a>   <br>
             <a href="idade.jsp">Idade </a>  <br>
-            <a href="randonten.jsp">Números Aleatorios</a>  
+            <a href="randonten.jsp">Números Aleatorios</a>  <br>
+            <a href="randon-n.jsp">Números Aleatorios - N</a>  <br>
+             <a href="tabuada.jsp">Tabuada - N</a>  
         </h3>
     </body>
 </html>
