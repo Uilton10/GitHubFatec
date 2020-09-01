@@ -21,7 +21,7 @@
             </form>
         <table border="1">
             <tr>
-                Numeros
+                Tabuada
             </tr>                
         <% if (request.getParameter("n")==null){%>
             <tr><td>Não há parametro</td></tr>    
