@@ -1,0 +1,49 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<style> 
+
+#conteudo-2-1 {
+    float:left;
+    width:10%;
+    height:100%;
+    background:#ddf;
+}
+#conteudo-2-2 {
+    float:left;
+    width:80%; 
+    height:100%;
+    background-color: lightblue;
+}
+#conteudo-2-3 {
+    float:right;
+    width:10%;
+    height:100%;
+    background:#ddf;
+}
+#conteudo-2 {   
+    height:100%;
+}
+#principal {   
+    height:100%;
+}
+html, body { margin:0; height: 100%;}
+
+#geral {   
+    margin:0 auto;
+    background:#ddd;
+    height:100%;
+}
+#rodape {
+    clear:both;/*posicionando o rodape abaixo das outras divs*/
+    background:whitesmoke;
+    float:right;
+}
+#principall{ 
+    width: 300px; 
+    text-align:center;
+    display: table;
+    vertical-align:middle;
+}
+</style>
