@@ -12,9 +12,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <%@include file="WEB-INF/jspf/headReference.jsp" %>  
         <title>Disciplinas</title>
+        
     </head>
     <body>
+        <div id="cabecalho"><%@include file="WEB-INF/jspf/menu.jspf"%>
        <%
            ArrayList materias = lDisciplina.GetMaterias(lDisciplina.getSemestre());
        %>
