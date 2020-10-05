@@ -42,13 +42,13 @@
             <tr><td>Não há parametro</td></tr>    
         <%}else{%>     
             <%int n = Integer.parseInt(request.getParameter("parcela"));
-            int total = Integer.parseInt(request.getParameter("divida"));
-            int juros = Integer.parseInt(request.getParameter("juros"));           
-            int parcela = 0;
+            double total = Integer.parseInt(request.getParameter("divida"));
+            double juros = Integer.parseInt(request.getParameter("juros"));           
+            double parcela = 0;
             NumberFormat  nf = new DecimalFormat("R$ ###,###,###.##");
             double dividaTotal = 0;
             String s_parcela_pagar;
-            int valor_juros = (total/100)*juros;%>        
+            double valor_juros = (total/100)*juros;%>        
             <b>Valor da divida:  <%=nf.format(total)%></b><br>
  <tr><td><b>Parcela</b></td><td><b>Valor</b></td> </tr>  </thead> <tbody>
            <% for (int i=1; i<=n;i++){ %>
@@ -68,9 +68,8 @@
                      <% }
            s_parcela_pagar = nf.format(dividaTotal);
            %>
-<b><tr><td>Total</td><td>  <%=s_parcela_pagar%></td></tr></b>
-<%}
-           %>
+        <b><tr><td>Total</td><td>  <%=s_parcela_pagar%></td></tr></b>
+        <%}%>
            </tbody>
          </table> 
          </div>

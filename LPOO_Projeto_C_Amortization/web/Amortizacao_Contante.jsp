@@ -21,38 +21,40 @@
         <div id="conteudo-2">
             <div id="conteudo-2-1"> <h1/> </div>
             <div id="conteudo-2-2">       
-        <h3>Sistema de Amortização Constante</h3>          
+        <h3>Sistema de Amortização Constante</h3>
+        
         <form><b>Informações para o Cálculo da dívida</b><br>
             <table class="table table-striped" color="white">
                 <tr><td>
-            <b>Digite o valor da divida: </b> </td><td> <input type="number" name="divida"><br>
+                    <b>Digite o valor da divida: </b> </td><td> <input type="number" name="divida"><br>
                     </td><tr><td>
-            <b>Digite a quantidade de parcelas: </b> </td><td> <input type="number" name="parcela"><br>
-             </td><tr><td>
-            <b>Digite o percentual de juros: </b></td><td> <input type="number" name="juros"><br>
-             <tr><td>
-            <input type="submit" name="Gerar" value="Calcular" class="btn btn-dark"   >
-           </td> </tr>
+                    <b>Digite a quantidade de parcelas: </b> </td><td> <input type="number" name="parcela"><br>
+                    </td><tr><td>
+                    <b>Digite o percentual de juros: </b></td><td> <input type="number" name="juros"><br>
+                    <tr><td>
+                <input type="submit" name="Gerar" value="Calcular" class="btn btn-dark"   >
+                </td> </tr>
             </table>
-            </form>
+        </form>
+        
         <table border="1" class="table table-striped table-dark">
                   <thead class="thead-dark">                              
         <% if (request.getParameter("parcela")==null){%>
             <tr><td>Não há parametro</td></tr>    
         <%}else{%>         
           <%  int n = Integer.parseInt(request.getParameter("parcela"));
-            int total = Integer.parseInt(request.getParameter("divida"));
-            int juros = Integer.parseInt(request.getParameter("juros"));
-            int pago = 0;
-            int parcela = 0;
-            int valor_fixo = total/n;
+            double total = Double.parseDouble(request.getParameter("divida"));
+            double juros = Double.parseDouble(request.getParameter("juros"));
+            double pago = 0;
+            double parcela = 0;
+            double valor_fixo = total/n;
             double dividaTotal = 0;
             String s_parcela_pagar;
             NumberFormat  nf = new DecimalFormat("RS ###,###,###.##");%>            
-<b>Valor da divida:  <%=nf.format(total)%></b><br>
+            <b>Valor da divida:  <%=nf.format(total)%></b><br>
             <tr><td><b>Parcela</b></td><td><b>Valor</b></td> </tr>  </thead> <tbody>
             <%for (int i=1; i<=n;i++){ %>
-        <tr><td>
+            <tr><td>
               <% parcela = valor_fixo+(total/100*juros);
                   pago = pago + valor_fixo; 
                   total = total - valor_fixo;
@@ -65,9 +67,8 @@
                      <% }
            s_parcela_pagar = nf.format(dividaTotal);
            %>
-<b><tr><td>Total</td><td>  <%=s_parcela_pagar%></td></tr></b>
-<%}
-           %>
+            <b><tr><td>Total</td><td>  <%=s_parcela_pagar%></td></tr></b>
+        <%}%>
            </tbody>
          </table> 
           </div>
@@ -75,7 +76,7 @@
         
     </div>
     <%@include file="WEB-INF/jspf/footerReference.jspf" %>
-</div>
+    </div>
          </div>
     </body>
 </html>
