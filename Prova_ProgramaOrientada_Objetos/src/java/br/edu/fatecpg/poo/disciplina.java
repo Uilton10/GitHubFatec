@@ -38,8 +38,14 @@ public class disciplina {
         this.semestre = semestre;
     }
 
-    public ArrayList<Double> getNota() {
-        return nota;
+    public Double getNota(int i) {
+        Double dNota;
+        try{
+            dNota = this.nota.get(i);
+        }catch (Exception e){
+            dNota = 0.0;
+        }
+        return dNota;
     }
 
     public void setNota(Double dnota, int i) {
