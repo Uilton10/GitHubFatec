@@ -61,9 +61,9 @@ public class Disciplina {
     }
      public static String getCreateStatement(){
         return "CREATE TABLE IF NOT EXISTS DISCIPLINAS ("      
-         +"nome VARCHAR(100) NOT NULL,"
-         +"ementa VARCHAR(200)  NOT NULL,"
-         + "semestre NUMBER NOT NULL"
+         +"nome VARCHAR(100) PRIMARY KEY NOT NULL, "
+         +"ementa VARCHAR(200)  NOT NULL, "
+         +"semestre NUMBER NOT NULL"
          + ")" ;
     }
      
@@ -95,4 +95,75 @@ public class Disciplina {
     return list;
     }
    
+      public static void InsertList(String nome,  String ementa, int semestre) throws Exception{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Exception methodException = null;
+        ResultSet rs = null;
+        try{        
+                  
+            con = DbListener.getConnection(); 
+            stmt = con.prepareStatement("INSERT INTO DISCIPLINAS"
+                            + "(nome, ementa, semestre) VALUES "
+                           + "(?, ?, ?)");  
+            stmt.setString(1, nome);
+            stmt.setString(2, ementa);
+            stmt.setInt(3, semestre);
+           
+            stmt.execute();
+            
+        } catch(Exception ex){
+            methodException =  ex;
+        }finally{            
+           try{stmt.close(); }catch(Exception ex2){}         
+           try{ con.close();}catch(Exception ex2){}     
+        }   
+    }
+      
+       public static void UpdatetList(String nome, String novoNome, String ementa, int semestre) throws Exception{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Exception methodException = null;
+        ResultSet rs = null;
+        try{        
+                  
+            con = DbListener.getConnection(); 
+            stmt = con.prepareStatement("UPDATE DISCIPLINAS "
+                            + "SET nome  = ?, "
+                            + "ementa = ?, "
+                            + "semestre = ? "
+                           + "(?, ?, ?) WHERE nome = ?");  
+            stmt.setString(1, novoNome);
+            stmt.setString(2, ementa);
+            stmt.setInt(3, semestre);
+            stmt.setString(4, nome);
+            stmt.execute();
+            
+        } catch(Exception ex){
+            methodException =  ex;
+        }finally{            
+           try{stmt.close(); }catch(Exception ex2){}         
+           try{ con.close();}catch(Exception ex2){}     
+        }   
+    }
+        public static void DeletetList(String nome) throws Exception{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Exception methodException = null;
+        ResultSet rs = null;
+        try{        
+                  
+            con = DbListener.getConnection(); 
+            stmt = con.prepareStatement("DELETE FROM DISCIPLINAS "                            
+                           + "WHERE nome = ?");  
+            stmt.setString(1, nome);            
+            stmt.execute();
+            
+        } catch(Exception ex){
+            methodException =  ex;
+        }finally{            
+           try{stmt.close(); }catch(Exception ex2){}         
+           try{ con.close();}catch(Exception ex2){}     
+        }   
+    }
 }
