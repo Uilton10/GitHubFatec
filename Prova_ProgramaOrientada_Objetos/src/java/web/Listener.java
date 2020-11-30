@@ -6,26 +6,26 @@
 package web;
 
 import br.edu.fatecpg.poo.Disciplina;
-import javax.servlet.ServletContextListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import javax.servlet.ServletContextEvent;
-import java.sql.*;
+import javax.servlet.ServletContextListener;
+import javax.swing.JOptionPane;
+
+
 /**
+ * Web application lifecycle listener.
  *
  * @author uilsa
  */
-public class DbListener implements ServletContextListener{
+public class Listener implements ServletContextListener {
     private static final String CLASS_NAME = "org.sqlite.JDBC";
-    private static final String DB_URL ="jdbc:sqlite:prova_p2.db";
+    private static final String DB_URL ="jdbc:sqlite:provap2.db";
     public static String exceptionMessage = null;
-    
-    
-    public static Connection getConnection() throws Exception{
-        return DriverManager.getConnection(DB_URL);  
-    }
-    
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-            String etapa = "Inicialização";
+        String etapa = "Inicialização";
             Connection con = null;
             Statement stmt = null;
             Disciplina d = null;
@@ -40,35 +40,38 @@ public class DbListener implements ServletContextListener{
             
             if(Disciplina.getList().isEmpty()){
                 stmt.execute("INSERT INTO disciplinas "
-                        +"('nome','ementa','semestre' VALUES ("
-                        + "'Programação Orientada a Objetos', 'ADS', 4");
+                        +"(nome, ementa,semestre) VALUES ("
+                        +"'Programação Orientada a Objetos', 'ADS', 4)");
                 stmt.execute("INSERT INTO disciplinas "
-                        +"('nome','ementa','semestre' VALUES ("
-                        + "'Engenharia de Software III', 'ADS', 4");
+                        +"(nome,ementa,semestre) VALUES ("
+                        + "'Engenharia de Software III', 'ADS', 4)");
                 stmt.execute("INSERT INTO disciplinas "
-                        +"('nome','ementa','semestre' VALUES ("
-                        + "'Laboratorio de Banco de Dados', 'ADS', 5");
+                         +"(nome,ementa,semestre) VALUES ("
+                        + "'Laboratorio de Banco de Dados', 'ADS', 5)");
                 stmt.execute("INSERT INTO disciplinas "
-                        +"('nome','ementa','semestre' VALUES ("
-                        + "'Gestão de Projetos', 'ADS', 5");
+                        +"(nome,ementa,semestre) VALUES ("
+                        + "'Gestão de Projetos', 'ADS', 5)");
                 stmt.execute("INSERT INTO disciplinas "
-                        +"('nome','ementa','semestre' VALUES ("
-                        + "'Metodologia de Pesquisa', 'ADS', 4");
+                         +"(nome,ementa,semestre) VALUES ("
+                        + "'Metodologia de Pesquisa', 'ADS', 4)");
                 stmt.execute("INSERT INTO disciplinas "
-                        +"('nome','ementa','semestre' VALUES ("
-                        + "'Inglês IV', 'ADS', 4");
-            }           
+                         +"(nome,ementa,semestre) VALUES ("
+                        + "'Inglês IV', 'ADS', 4)");
+            }          
                         
         } catch(Exception ex){
         exceptionMessage = etapa+ ": "+ex.getLocalizedMessage();
+      JOptionPane.showMessageDialog(null, exceptionMessage);
         }finally{            
            try{stmt.close(); }catch(Exception ex2){}         
            try{ con.close();}catch(Exception ex2){}     
         }
-        
     }
-    
+     
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+    }
+    public static Connection getConnection() throws Exception{
+        return DriverManager.getConnection(DB_URL);  
     }
 }
