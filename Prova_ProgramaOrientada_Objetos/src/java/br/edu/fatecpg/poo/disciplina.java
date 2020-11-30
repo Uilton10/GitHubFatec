@@ -132,7 +132,7 @@ public class Disciplina {
                             + "SET nome  = ?, "
                             + "ementa = ?, "
                             + "semestre = ? "
-                           + "(?, ?, ?) WHERE nome = ?");  
+                           + "WHERE nome = ?");  
             stmt.setString(1, novoNome);
             stmt.setString(2, ementa);
             stmt.setInt(3, semestre);
