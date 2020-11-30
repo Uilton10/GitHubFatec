@@ -5,6 +5,8 @@
  */
 package br.edu.fatecpg.poo;
 import java.util.ArrayList;
+import java.sql.*;
+import web.DbListener;
 /**
  *
  * @author uilsa
@@ -59,54 +61,146 @@ public class Disciplina {
         this.semestre = semestre;
     }
     
-    public ArrayList GetMaterias(int semestre){
-        ArrayList materias = new ArrayList();
-        materias.clear();
-        switch (semestre){
-            case 1: 
-                materias.add("Semestre 1 - Materia 1");
-                materias.add("Semestre 1 - Materia 2");
-                materias.add("Semestre 1 - Materia 3");
-                materias.add("Semestre 1 - Materia 4");
-                materias.add("Semestre 1 - Materia 5");
-                break;
-            case 2: 
-                materias.add("Semestre 2 - Materia 1");
-                materias.add("Semestre 2 - Materia 2");
-                materias.add("Semestre 2 - Materia 3");
-                materias.add("Semestre 2 - Materia 4");
-                materias.add("Semestre 2 - Materia 5");
-                break;
-            case 3: 
-                materias.add("Semestre 3 - Materia 1");
-                materias.add("Semestre 3 - Materia 2");
-                materias.add("Semestre 3 - Materia 3");
-                materias.add("Semestre 3 - Materia 4");
-                materias.add("Semestre 3 - Materia 5");
-                break;
-            case 4: 
-                materias.add("Semestre 4 - Materia 1");
-                materias.add("Semestre 4 - Materia 2");
-                materias.add("Semestre 4 - Materia 3");
-                materias.add("Semestre 4 - Materia 4");
-                materias.add("Semestre 4 - Materia 5");
-                break;
-            case 5:                     
-                materias.add("Programação Orientada a Objetos");
-                materias.add("Engenharia de Software III");
-                materias.add("Laboratorio de Banco de Dados");
-                materias.add("Gestão de Projetos");
-                materias.add("Metodologia de Pesquisa");
-                materias.add("Inglês IV");
-                break;
-            case 6: 
-                materias.add("Semestre 6 - Materia 1");
-                materias.add("Semestre 6 - Materia 2");
-                materias.add("Semestre 6 - Materia 3");
-                materias.add("Semestre 6 - Materia 4");
-                materias.add("Semestre 6 - Materia 5");  
-                break;
+    public static String getCreateStatement(){
+        return "CREATE TABLE IF NOT EXISTS disciplinas ("
+            +"nome VARCHAR(100) UNIQUE NOT NULL,"
+            +"ementa VARCHAR(200)  NOT NULL,"
+            +"semestre NUMBER  NOT NULL)" ;
+    }
+   
+    
+    public static Disciplina getDisciplina(String nome, String ementa, int semestre) throws Exception{
+        Disciplina d= null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Exception methodException = null;
+        ResultSet rs = null;
+        
+        try{     
+                  
+            con = DbListener.getConnection(); 
+            stmt = con.prepareStatement("SELECT * FROM DISCIPLINAS where nome = ? and ementa = ? AND semestre = ?");
+            stmt.setString(1, nome);
+            stmt.setString(2, ementa);
+            stmt.setInt(3, semestre);
+                   // + "' and password_hash = "+ senha.hashCode());
+            rs = stmt.executeQuery();
+            while(rs.next()){
+            d = new Disciplina(
+            rs.getString("nome"),
+            rs.getString("ementa"),
+            rs.getInt("semestre"));                   
+            
+            }
+           
+        } catch(Exception ex){
+            methodException =  ex;
+        }finally{            
+           try{stmt.close(); }catch(Exception ex2){}         
+           try{ con.close();}catch(Exception ex2){}     
         }
-        return materias;
+        return d;
+        
+    }
+    public static ArrayList<Disciplina> getList() throws Exception{
+        ArrayList<Disciplina> list = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Exception methodException = null;
+        ResultSet rs = null;
+        
+        try{       
+                  
+            con = DbListener.getConnection(); 
+            stmt = con.prepareStatement("SELECT * FROM DISCIPLINAS");         
+            rs = stmt.executeQuery();
+            while(rs.next()){
+            list.add(new Disciplina(
+            rs.getString("nome"),
+            rs.getString("ementa"),
+            rs.getInt("semestre")));                  
+            
+            }
+           
+        } catch(Exception ex){
+            methodException =  ex;
+        }finally{            
+           try{stmt.close(); }catch(Exception ex2){}         
+           try{ con.close();}catch(Exception ex2){}     
+        }
+        return list;
+        
+    }
+    
+     public static void InsertList(String nome, String ementa, int semestre) throws Exception{
+        Disciplina d= null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Exception methodException = null;
+        ResultSet rs = null;
+        
+        try{     
+                  
+            con = DbListener.getConnection(); 
+            stmt = con.prepareStatement("INSERT INTO DISCIPLINAS (nome, ementa, semestre) VALUES (?, ?, ?)");
+            stmt.setString(1, nome);
+            stmt.setString(2, ementa);
+            stmt.setInt(3, semestre);
+            stmt.execute();          
+           
+        } catch(Exception ex){
+            methodException =  ex;
+        }finally{            
+           try{stmt.close(); }catch(Exception ex2){}         
+           try{ con.close();}catch(Exception ex2){}     
+        }        
+    }
+     
+     public static void UpdateList(String nome, String ementa, int semestre) throws Exception{
+        Disciplina d= null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Exception methodException = null;
+        ResultSet rs = null;
+        
+        try{     
+                  
+            con = DbListener.getConnection(); 
+            stmt = con.prepareStatement("UPDATE DISCIPLINAS SET nome = ?, ementa = ?, semestre = ?");
+            stmt.setString(1, nome);
+            stmt.setString(2, ementa);
+            stmt.setInt(3, semestre);
+            stmt.execute();          
+           
+        } catch(Exception ex){
+            methodException =  ex;
+        }finally{            
+           try{stmt.close(); }catch(Exception ex2){}         
+           try{ con.close();}catch(Exception ex2){}     
+        }        
+    }
+     
+     public static void DeleteList(String nome, String ementa, int semestre) throws Exception{        
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Exception methodException = null;
+        ResultSet rs = null;
+        
+        try{     
+                  
+            con = DbListener.getConnection(); 
+            stmt = con.prepareStatement("DELETE FROM DISCIPLINAS WHERE"
+                                        + " nome = ? AND  ementa = ? AND semestre = ?");
+            stmt.setString(1, nome);
+            stmt.setString(2, ementa);
+            stmt.setInt(3, semestre);
+            stmt.execute();          
+           
+        } catch(Exception ex){
+            methodException =  ex;
+        }finally{            
+           try{stmt.close(); }catch(Exception ex2){}         
+           try{ con.close();}catch(Exception ex2){}     
+        }        
     }
 }
