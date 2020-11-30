@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author uilsa
  */
 
-public class disciplina {
+public class Disciplina {
     private String nome, ementa;
     private int semestre;
     private ArrayList<Double> nota = new ArrayList();
@@ -53,7 +53,7 @@ public class disciplina {
         this.nota.add(i, dnota);
     }
     
-    public disciplina(String nome, String ementa, int semestre){
+    public Disciplina(String nome, String ementa, int semestre){
         this.nome = nome;
         this.ementa = ementa;
         this.semestre = semestre;
